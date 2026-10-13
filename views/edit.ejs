@@ -4,7 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Edit Post</title>
+
     <link rel="stylesheet" href="/style.css">
 </head>
 
@@ -12,21 +14,11 @@
 
     <h1>Edit Post</h1>
 
-    <form action="/edit/<%= index %>" method="POST">
-
-        <label>Your Name:</label>
-        <br>
-        <input
-            type="text"
-            name="creator"
-            value="<%= post.creator %>"
-            required
-        >
-
-        <br><br>
+    <form action="/edit/<%= post.blog_id %>" method="POST">
 
         <label>Blog Title:</label>
         <br>
+
         <input
             type="text"
             name="title"
@@ -36,53 +28,75 @@
 
         <br><br>
 
+
         <label>Category:</label>
         <br>
 
         <select name="category">
 
-            <option value="Tech"
-                <%= post.category === "Tech" ? "selected" : "" %>>
+            <option
+                value="Tech"
+                <%= post.category === "Tech" ? "selected" : "" %>
+            >
                 Tech
             </option>
 
-            <option value="Lifestyle"
-                <%= post.category === "Lifestyle" ? "selected" : "" %>>
+            <option
+                value="Lifestyle"
+                <%= post.category === "Lifestyle" ? "selected" : "" %>
+            >
                 Lifestyle
             </option>
 
-            <option value="Education"
-                <%= post.category === "Education" ? "selected" : "" %>>
+            <option
+                value="Education"
+                <%= post.category === "Education" ? "selected" : "" %>
+            >
                 Education
             </option>
 
-            <option value="Motorcycle"
-                <%= post.category === "Motorcycle" ? "selected" : "" %>>
+            <option
+                value="Motorcycle"
+                <%= post.category === "Motorcycle" ? "selected" : "" %>
+            >
                 Motorcycle
+            </option>
+
+            <option
+                value="Other"
+                <%= post.category === "Other" ? "selected" : "" %>
+            >
+                Other
             </option>
 
         </select>
 
         <br><br>
 
+
         <label>Blog:</label>
         <br>
+
         <textarea
             name="content"
-            rows="6"
+            rows="8"
             cols="40"
             required
-        ><%= post.content %></textarea>
+        ><%= post.body %></textarea>
 
         <br><br>
 
-        <button type="submit">Save Changes</button>
+        <button type="submit">
+            Save Changes
+        </button>
 
     </form>
 
     <br>
 
-    <a href="/">Cancel</a>
+    <a href="/">
+        Cancel
+    </a>
 
 </body>
 

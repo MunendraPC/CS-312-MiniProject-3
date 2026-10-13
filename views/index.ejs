@@ -4,7 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Blog App</title>
+
     <link rel="stylesheet" href="/style.css">
 </head>
 
@@ -12,88 +14,144 @@
 
     <h1>My Blog</h1>
 
+    <p>
+        Signed in as <strong><%= user.name %></strong>
+        |
+        <a href="/logout">Logout</a>
+    </p>
+
+
     <h2>Create a Post</h2>
 
     <form action="/posts" method="POST">
 
-        <label>Your Name:</label>
-        <br>
-        <input type="text" name="creator" required>
-
-        <br><br>
+        <p>
+            Posting as:
+            <strong><%= user.name %></strong>
+        </p>
 
         <label>Blog Title:</label>
         <br>
-        <input type="text" name="title" required>
+
+        <input
+            type="text"
+            name="title"
+            required
+        >
 
         <br><br>
-        
+
+
         <label>Category:</label>
         <br>
 
         <select name="category" required>
+
             <option value="Tech">Tech</option>
             <option value="Lifestyle">Lifestyle</option>
             <option value="Education">Education</option>
             <option value="Motorcycle">Motorcycle</option>
-        </select>
 
-        <br><br>        
-        <label>Blog:</label>
-        <br>
-        <textarea name="content" rows="6" cols="40" required></textarea>
+        </select>
 
         <br><br>
 
-        <button type="submit">Create Post</button>
+
+        <label>Blog:</label>
+        <br>
+
+        <textarea
+            name="content"
+            rows="6"
+            cols="40"
+            required
+        ></textarea>
+
+        <br><br>
+
+        <button type="submit">
+            Create Post
+        </button>
 
     </form>
 
+
     <hr>
+
+
     <form action="/" method="GET">
 
         <label>Filter by Category:</label>
 
         <select name="category">
+
             <option value="All">All</option>
             <option value="Tech">Tech</option>
             <option value="Lifestyle">Lifestyle</option>
             <option value="Education">Education</option>
             <option value="Motorcycle">Motorcycle</option>
+            <option value="Other">Other</option>
+
         </select>
 
-        <button type="submit">Filter</button>
+        <button type="submit">
+            Filter
+        </button>
 
     </form>
+
+
     <h2>All Posts</h2>
 
-    <% posts.forEach((post, index) => { %>
+
+    <% posts.forEach((post) => { %>
 
         <% if (selectedCategory === "All" || post.category === selectedCategory) { %>
 
             <div class="post">
 
-                <h3><%= post.title %></h3>
+                <h3>
+                    <%= post.title %>
+                </h3>
 
                 <p>
-                    <strong>By:</strong> <%= post.creator %>
+                    <strong>By:</strong>
+                    <%= post.creator %>
                 </p>
 
                 <p>
-                    <strong>Category:</strong> <%= post.category %>
+                    <strong>Category:</strong>
+                    <%= post.category %>
                 </p>
 
                 <p>
-                    <strong>Created:</strong> <%= post.createdAt %>
+                    <strong>Created:</strong>
+                    <%= new Date(post.createdAt).toLocaleString() %>
                 </p>
 
-                <p><%= post.content %></p>
+                <p>
+                    <%= post.content %>
+                </p>
 
-                <a href="/edit/<%= index %>">Edit</a>
 
-                <form action="/delete/<%= index %>" method="POST">
-                    <button type="submit">Delete</button>
-                </form>
+                <% if (post.creator_user_id === user.user_id) { %>
+
+                    <a href="/edit/<%= post.blog_id %>">
+                        Edit
+                    </a>
+
+                    <form
+                        action="/delete/<%= post.blog_id %>"
+                        method="POST"
+                    >
+
+                        <button type="submit">
+                            Delete
+                        </button>
+
+                    </form>
+
+                <% } %>
 
             </div>
 
